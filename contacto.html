@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | InmoChocope</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col h-full text-slate-800">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-bold text-blue-900 tracking-tight">Inmo<span class="text-sky-500">Chocope</span></span>
+            </div>
+            <nav class="flex space-x-6 text-sm font-medium text-slate-600">
+                <a href="index.html" class="hover:text-blue-600 transition-colors px-1 py-5">Catálogo</a>
+                <a href="nosotros.html" class="hover:text-blue-600 transition-colors px-1 py-5">Nosotros</a>
+                <a href="contacto.html" class="text-blue-600 border-b-2 border-blue-600 px-1 py-5">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- SEMANA 3: Formulario Avanzado con Validaciones Nativas -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full flex items-center justify-center">
+        <div class="w-full max-w-2xl bg-white border border-slate-200 rounded-2xl shadow-sm p-8">
+            <div class="text-center mb-8">
+                <span class="text-sm font-bold text-sky-500 uppercase tracking-wider">Atención Inmediata</span>
+                <h1 class="text-3xl font-bold text-blue-900 mt-1">¿Interesado en un Inmueble?</h1>
+                <p class="text-slate-500 text-sm mt-1">Envíanos tus datos y un asesor del Valle Chicama te contactará</p>
+            </div>
+            
+            <form action="#" class="space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1 tracking-wide">Nombre Completo</label>
+                        <input type="text" required class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500 transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1 tracking-wide">Número Telefónico</label>
+                        <input type="tel" required class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500 transition-colors">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1 tracking-wide">Correo Electrónico</label>
+                    <input type="email" required class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500 transition-colors">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1 tracking-wide">Mensaje o Consulta</label>
+                    <textarea rows="4" required placeholder="Ej: Me gustaría recibir más información sobre el terreno en venta en Paiján..." class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500 transition-colors resize-none"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-blue-900 hover:bg-blue-800 text-white font-semibold text-sm py-3 rounded-lg shadow-sm transition-all transform active:scale-[0.98]">
+                    Enviar Formulario
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 text-center py-6 text-sm border-t border-slate-800">
+        <p>&copy; 2026 Portal Inmobiliario - Unidad Didáctica de Maquetación Web | IESTP Chocope</p>
+    </footer>
+</body>
+</html>

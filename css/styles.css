@@ -1,0 +1,15 @@
+/* ==========================================================================
+   SÍLABO: SEMANAS 7 Y 8 - REJILLA DE PROPIEDADES AUTOADAPTABLE
+   ========================================================================== */
+
+.property-grid {
+    display: grid;
+    /* Requerimiento literal: Adaptabilidad matemática fluida sin Media Queries repetitivas */
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 2rem;
+}
+
+/* Manejo de estados visisbles/ocultos para el script del filtro interactivo */
+.property-card.hidden {
+    display: none;
+}
