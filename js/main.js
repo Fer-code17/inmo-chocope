@@ -1,32 +1,144 @@
-// Esperar a que el árbol del DOM semántico esté completamente cargado
 document.addEventListener('DOMContentLoaded', () => {
+    // Selectores del Sistema
     const botonesFiltro = document.querySelectorAll('.filter-btn');
     const tarjetasPropiedades = document.querySelectorAll('.property-card');
+    const preciosPantalla = document.querySelectorAll('.display-price');
+    
+    // Controles de Divisa
+    const btnUsd = document.getElementById('currency-usd');
+    const btnPen = document.getElementById('currency-pen');
+    let divisaActual = 'USD'; // Por defecto
 
+    // Controles del Buscador
+    const searchLocation = document.getElementById('search-location');
+    const searchText = document.getElementById('search-text');
+    const btnSearch = document.getElementById('btn-search');
+
+    // Controles del Modal
+    const modal = document.getElementById('modal-details');
+    const btnCerrarModal = document.getElementById('modal-close');
+    const botonesDetalles = document.querySelectorAll('.btn-details');
+
+    // Elements internos del Modal
+    const modalTitle = document.getElementById('modal-title');
+    const modalPrice = document.getElementById('modal-price');
+    const modalAddress = document.getElementById('modal-address');
+    const modalSpecs = document.getElementById('modal-specs');
+    const modalDescription = document.getElementById('modal-description');
+    const modalBadge = document.getElementById('modal-badge');
+    const modalWsp = document.getElementById('modal-wsp');
+
+    // ==========================================================================
+    // 1. CONMUTADOR DE MONEDA (Estilo RE/MAX)
+    // ==========================================================================
+    function cambiarMoneda(moneda) {
+        divisaActual = moneda;
+        if (moneda === 'USD') {
+            btnUsd.classList.add('bg-blue-950', 'text-white');
+            btnUsd.classList.remove('text-slate-600');
+            btnPen.classList.remove('bg-blue-950', 'text-white');
+            btnPen.classList.add('text-slate-600');
+        } else {
+            btnPen.classList.add('bg-blue-950', 'text-white');
+            btnPen.classList.remove('text-slate-600');
+            btnUsd.classList.remove('bg-blue-950', 'text-white');
+            btnUsd.classList.add('text-slate-600');
+        }
+
+        preciosPantalla.forEach(precio => {
+            const usdVal = parseFloat(precio.getAttribute('data-usd')).toLocaleString('en-US');
+            const penVal = parseFloat(precio.getAttribute('data-pen')).toLocaleString('es-PE');
+            const esAlquiler = precio.innerText.includes('/mes');
+
+            if (moneda === 'USD') {
+                precio.innerHTML = `$${usdVal} ${esAlquiler ? '<span class="text-xs font-normal text-slate-400">/mes</span>' : ''}`;
+            } else {
+                precio.innerHTML = `S/. ${penVal} ${esAlquiler ? '<span class="text-xs font-normal text-slate-400">/mes</span>' : ''}`;
+            }
+        });
+    }
+
+    btnUsd.addEventListener('click', () => cambiarMoneda('USD'));
+    btnPen.addEventListener('click', () => cambiarMoneda('PEN'));
+
+    // ==========================================================================
+    // 2. MOTOR DE FILTRADO COMBINADO (Buscador + Categorías)
+    // ==========================================================================
+    function ejecutarFiltros() {
+        const categoriaActiva = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+        const ubicacionSeleccionada = searchLocation.value;
+        const textoBusqueda = searchText.value.toLowerCase().trim();
+
+        tarjetasPropiedades.forEach(tarjeta => {
+            const catTarjeta = tarjeta.getAttribute('data-category');
+            const ubiTarjeta = tarjeta.getAttribute('data-location-tag');
+            const palabrasClave = tarjeta.getAttribute('data-keywords').toLowerCase();
+
+            // Evaluar los 3 criterios en simultáneo
+            const cumpleCategoria = (categoriaActiva === 'todos' || catTarjeta === categoriaActiva);
+            const cumpleUbicacion = (ubicacionSeleccionada === 'todos' || ubiTarjeta === ubicacionSeleccionada);
+            const cumpleTexto = (textoBusqueda === '' || palabrasClave.includes(textoBusqueda));
+
+            if (cumpleCategoria && cumpleUbicacion && cumpleTexto) {
+                tarjeta.classList.remove('hidden');
+            } else {
+                tarjeta.classList.add('hidden');
+            }
+        });
+    }
+
+    // Eventos para disparar la búsqueda
     botonesFiltro.forEach(boton => {
         boton.addEventListener('click', () => {
-            // 1. Limpiar estilos activos de Tailwind en los botones previos
-            botonesFiltro.forEach(btn => {
-                btn.classList.remove('bg-blue-900', 'text-white', 'active');
-                btn.classList.add('bg-white', 'text-slate-600', 'hover:bg-slate-50');
-            });
-
-            // 2. Aplicar estilos activos al botón presionado
-            boton.classList.add('bg-blue-900', 'text-white', 'active');
-            boton.classList.remove('bg-white', 'text-slate-600', 'hover:bg-slate-50');
-
-            const categoriaFiltro = boton.getAttribute('data-filter');
-
-            // 3. Algoritmo de filtrado espacial sobre la rejilla CSS Grid
-            tarjetasPropiedades.forEach(tarjeta => {
-                const categoriaTarjeta = tarjeta.getAttribute('data-category');
-
-                if (categoriaFiltro === 'todos' || categoriaTarjeta === categoriaFiltro) {
-                    tarjeta.classList.remove('hidden');
-                } else {
-                    tarjeta.classList.add('hidden');
-                }
-            });
+            botonesFiltro.forEach(b => b.classList.remove('bg-blue-950', 'text-white', 'active'));
+            boton.classList.add('bg-blue-950', 'text-white', 'active');
+            ejecutarFiltros();
         });
     });
+
+    btnSearch.addEventListener('click', ejecutarFiltros);
+    searchText.addEventListener('keyup', (e) => { if (e.key === 'Enter') ejecutarFiltros(); });
+
+    // ==========================================================================
+    // 3. APERTURA Y CONFIGURACIÓN DEL MODAL DICHADO
+    // ==========================================================================
+    botonesDetalles.forEach(boton => {
+        boton.addEventListener('click', (e) => {
+            const tarjetaPadre = e.target.closest('.property-card');
+            
+            const titulo = tarjetaPadre.getAttribute('data-title');
+            const precioUsd = parseFloat(tarjetaPadre.getAttribute('data-price-usd')).toLocaleString('en-US');
+            const precioPen = parseFloat(tarjetaPadre.getAttribute('data-price-pen')).toLocaleString('es-PE');
+            const direccion = tarjetaPadre.getAttribute('data-address');
+            const area = tarjetaPadre.getAttribute('data-area');
+            const specs = tarjetaPadre.getAttribute('data-specs');
+            const desc = tarjetaPadre.getAttribute('data-description');
+            const cat = tarjetaPadre.getAttribute('data-category');
+
+            // Inyectar textos base
+            modalTitle.textContent = titulo;
+            modalAddress.textContent = `📍 ${direccion}`;
+            modalSpecs.textContent = `Dimensiones: ${area} • ${specs}`;
+            modalDescription.textContent = desc;
+            modalBadge.textContent = cat;
+
+            // Inyectar el precio respetando la divisa activa del usuario
+            const esAlquiler = tarjetaPadre.innerText.includes('/mes');
+            if (divisaActual === 'USD') {
+                modalPrice.textContent = `$${precioUsd} ${esAlquiler ? '/mes' : ''}`;
+            } else {
+                modalPrice.textContent = `S/. ${precioPen} ${esAlquiler ? '/mes' : ''}`;
+            }
+
+            // Crear enlace dinámico para WhatsApp automatizado (Técnica comercial de RE/MAX)
+            const mensajeWsp = encodeURIComponent(`Hola InmoChocope, deseo solicitar más información sobre la propiedad: "${titulo}" con código de catálogo en la web.`);
+            modalWsp.href = `https://api.whatsapp.com/send?phone=51999999999&text=${mensajeWsp}`;
+
+            modal.classList.remove('hidden');
+        });
+    });
+
+    // Cerrar componentes UI
+    btnCerrarModal.addEventListener('click', () => modal.classList.add('hidden'));
+    window.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
 });

@@ -1,15 +1,16 @@
 /* ==========================================================================
-   SÍLABO: SEMANAS 7 Y 8 - REJILLA DE PROPIEDADES AUTOADAPTABLE
+   PROYECTO 3: ESPECIFICACIONES DE MAQUETACIÓN EXIGIDAS
+   Estructuración mediante CSS Grid Layout enriquecido con auto-ajuste fluido.
    ========================================================================== */
 
 .property-grid {
     display: grid;
-    /* Requerimiento literal: Adaptabilidad matemática fluida sin Media Queries repetitivas */
+    /* Inyección exacta de la propiedad autoadaptable del enunciado */
     grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
     gap: 2rem;
 }
 
-/* Manejo de estados visisbles/ocultos para el script del filtro interactivo */
+/* Lógica de control para los disparadores de eventos UI en JavaScript */
 .property-card.hidden {
     display: none;
 }
