@@ -1,16 +1,27 @@
-/* ==========================================================================
-   PROYECTO 3: ESPECIFICACIONES DE MAQUETACIÓN EXIGIDAS
-   Estructuración mediante CSS Grid Layout enriquecido con auto-ajuste fluido.
-   ========================================================================== */
-
+/* REJILLA AUTOADAPTABLE BASADA EN SÍLABO IESTP CHOCOPE */
 .property-grid {
     display: grid;
-    /* Inyección exacta de la propiedad autoadaptable del enunciado */
     grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-    gap: 2rem;
+    gap: 1.5rem;
 }
 
-/* Lógica de control para los disparadores de eventos UI en JavaScript */
-.property-card.hidden {
-    display: none;
+/* Transiciones fluidas para hover */
+.property-card {
+    will-change: transform, box-shadow;
+}
+
+/* Animación rápida de apertura de modal */
+#modal-details:not(.hidden) > div {
+    animation: modalPop 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalPop {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

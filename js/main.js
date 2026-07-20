@@ -1,25 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Selectores del Sistema
+    // Selectores DOM
     const botonesFiltro = document.querySelectorAll('.filter-btn');
     const tarjetasPropiedades = document.querySelectorAll('.property-card');
     const preciosPantalla = document.querySelectorAll('.display-price');
     
-    // Controles de Divisa
+    // Controles Divisa
     const btnUsd = document.getElementById('currency-usd');
     const btnPen = document.getElementById('currency-pen');
-    let divisaActual = 'USD'; // Por defecto
+    let divisaActual = 'USD';
 
-    // Controles del Buscador
+    // Controles Buscador
     const searchLocation = document.getElementById('search-location');
     const searchText = document.getElementById('search-text');
     const btnSearch = document.getElementById('btn-search');
 
-    // Controles del Modal
+    // Controles Modal
     const modal = document.getElementById('modal-details');
     const btnCerrarModal = document.getElementById('modal-close');
     const botonesDetalles = document.querySelectorAll('.btn-details');
 
-    // Elements internos del Modal
     const modalTitle = document.getElementById('modal-title');
     const modalPrice = document.getElementById('modal-price');
     const modalAddress = document.getElementById('modal-address');
@@ -28,9 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBadge = document.getElementById('modal-badge');
     const modalWsp = document.getElementById('modal-wsp');
 
-    // ==========================================================================
-    // 1. CONMUTADOR DE MONEDA (Estilo RE/MAX)
-    // ==========================================================================
+    // 1. CONMUTADOR DE MONEDA
     function cambiarMoneda(moneda) {
         divisaActual = moneda;
         if (moneda === 'USD') {
@@ -61,9 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnUsd.addEventListener('click', () => cambiarMoneda('USD'));
     btnPen.addEventListener('click', () => cambiarMoneda('PEN'));
 
-    // ==========================================================================
-    // 2. MOTOR DE FILTRADO COMBINADO (Buscador + Categorías)
-    // ==========================================================================
+    // 2. MOTOR DE FILTRADO
     function ejecutarFiltros() {
         const categoriaActiva = document.querySelector('.filter-btn.active').getAttribute('data-filter');
         const ubicacionSeleccionada = searchLocation.value;
@@ -74,7 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const ubiTarjeta = tarjeta.getAttribute('data-location-tag');
             const palabrasClave = tarjeta.getAttribute('data-keywords').toLowerCase();
 
-            // Evaluar los 3 criterios en simultáneo
             const cumpleCategoria = (categoriaActiva === 'todos' || catTarjeta === categoriaActiva);
             const cumpleUbicacion = (ubicacionSeleccionada === 'todos' || ubiTarjeta === ubicacionSeleccionada);
             const cumpleTexto = (textoBusqueda === '' || palabrasClave.includes(textoBusqueda));
@@ -87,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Eventos para disparar la búsqueda
     botonesFiltro.forEach(boton => {
         boton.addEventListener('click', () => {
             botonesFiltro.forEach(b => b.classList.remove('bg-blue-950', 'text-white', 'active'));
@@ -99,9 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnSearch.addEventListener('click', ejecutarFiltros);
     searchText.addEventListener('keyup', (e) => { if (e.key === 'Enter') ejecutarFiltros(); });
 
-    // ==========================================================================
-    // 3. APERTURA Y CONFIGURACIÓN DEL MODAL DICHADO
-    // ==========================================================================
+    // 3. CONTROL DEL MODAL
     botonesDetalles.forEach(boton => {
         boton.addEventListener('click', (e) => {
             const tarjetaPadre = e.target.closest('.property-card');
@@ -115,14 +106,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const desc = tarjetaPadre.getAttribute('data-description');
             const cat = tarjetaPadre.getAttribute('data-category');
 
-            // Inyectar textos base
             modalTitle.textContent = titulo;
             modalAddress.textContent = `📍 ${direccion}`;
-            modalSpecs.textContent = `Dimensiones: ${area} • ${specs}`;
+            modalSpecs.textContent = `Metraje: ${area} • ${specs}`;
             modalDescription.textContent = desc;
             modalBadge.textContent = cat;
 
-            // Inyectar el precio respetando la divisa activa del usuario
             const esAlquiler = tarjetaPadre.innerText.includes('/mes');
             if (divisaActual === 'USD') {
                 modalPrice.textContent = `$${precioUsd} ${esAlquiler ? '/mes' : ''}`;
@@ -130,15 +119,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalPrice.textContent = `S/. ${precioPen} ${esAlquiler ? '/mes' : ''}`;
             }
 
-            // Crear enlace dinámico para WhatsApp automatizado (Técnica comercial de RE/MAX)
-            const mensajeWsp = encodeURIComponent(`Hola InmoChocope, deseo solicitar más información sobre la propiedad: "${titulo}" con código de catálogo en la web.`);
+            const mensajeWsp = encodeURIComponent(`Hola InmoChocope, me interesa la propiedad: "${titulo}". Quisiera agendar una visita.`);
             modalWsp.href = `https://api.whatsapp.com/send?phone=51999999999&text=${mensajeWsp}`;
 
             modal.classList.remove('hidden');
         });
     });
 
-    // Cerrar componentes UI
     btnCerrarModal.addEventListener('click', () => modal.classList.add('hidden'));
     window.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
 });
