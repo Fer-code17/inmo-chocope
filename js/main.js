@@ -129,3 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
     btnCerrarModal.addEventListener('click', () => modal.classList.add('hidden'));
     window.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
 });
+// Control del Menú Hamburguesa Móvil
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
