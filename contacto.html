@@ -3,61 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto | InmoChocope</title>
+    <title>Contacto | Inmobiliaria AM</title>
+    
+    <!-- TAILWIND CSS CDN + CONFIGURACIÓN DE PALETA AM -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                navy: '#0B1E36',
+                blue: '#0055B8',
+                cyan: '#00A8FF',
+                dark: '#020617',
+                light: '#F8FAFC'
+              }
+            },
+            boxShadow: {
+              'glow': '0 4px 20px rgba(0, 168, 255, 0.25)',
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="flex flex-col h-full text-slate-800">
+<body class="flex flex-col h-full text-slate-800 bg-brand-light">
 
+    <!-- CABECERA PRINCIPAL CON LOGO AM -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl font-bold text-blue-900 tracking-tight">Inmo<span class="text-sky-500">Chocope</span></span>
-            </div>
-            <nav class="flex space-x-6 text-sm font-medium text-slate-600">
-                <a href="index.html" class="hover:text-blue-600 transition-colors px-1 py-5">Catálogo</a>
-                <a href="nosotros.html" class="hover:text-blue-600 transition-colors px-1 py-5">Nosotros</a>
-                <a href="contacto.html" class="text-blue-600 border-b-2 border-blue-600 px-1 py-5">Contacto</a>
+            <a href="index.html" class="text-2xl font-extrabold text-brand-navy tracking-tight">
+                Inmobiliaria <span class="text-brand-cyan font-black border-b-2 border-brand-cyan">AM</span>
+            </a>
+            
+            <!-- Botón Hamburguesa (Móvil) -->
+            <button id="mobile-menu-btn" class="md:hidden text-slate-700 hover:text-brand-navy focus:outline-none p-2" aria-label="Abrir menú">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <!-- Menú Escritorio -->
+            <nav class="hidden md:flex space-x-6 text-sm font-semibold text-slate-600">
+                <a href="index.html" class="hover:text-brand-blue transition-colors px-1 py-5">Catálogo</a>
+                <a href="nosotros.html" class="hover:text-brand-blue transition-colors px-1 py-5">Nosotros</a>
+                <a href="contacto.html" class="text-brand-blue border-b-2 border-brand-cyan px-1 py-5">Contacto</a>
             </nav>
+        </div>
+
+        <!-- Menú Desplegable Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2">
+            <a href="index.html" class="block py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 px-3 rounded-lg">Catálogo</a>
+            <a href="nosotros.html" class="block py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 px-3 rounded-lg">Nosotros</a>
+            <a href="contacto.html" class="block py-2 text-sm font-bold text-brand-blue bg-slate-50 px-3 rounded-lg">Contacto</a>
         </div>
     </header>
 
-    <!-- SEMANA 3: Formulario Avanzado con Validaciones Nativas -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full flex items-center justify-center">
-        <div class="w-full max-w-2xl bg-white border border-slate-200 rounded-2xl shadow-sm p-8">
-            <div class="text-center mb-8">
-                <span class="text-sm font-bold text-sky-500 uppercase tracking-wider">Atención Inmediata</span>
-                <h1 class="text-3xl font-bold text-blue-900 mt-1">¿Interesado en un Inmueble?</h1>
-                <p class="text-slate-500 text-sm mt-1">Envíanos tus datos y un asesor del Valle Chicama te contactará</p>
-            </div>
+    <!-- SECCIÓN DE CONTACTO -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            <form action="#" class="space-y-5">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1 tracking-wide">Nombre Completo</label>
-                        <input type="text" required class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500 transition-colors">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1 tracking-wide">Número Telefónico</label>
-                        <input type="tel" required class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500 transition-colors">
-                    </div>
-                </div>
+            <!-- CANALES DE CONTACTO DIRECTO (5 columnas en LG) -->
+            <div class="lg:col-span-5 space-y-6">
                 <div>
-                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1 tracking-wide">Correo Electrónico</label>
-                    <input type="email" required class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500 transition-colors">
+                    <span class="text-xs font-bold text-brand-cyan uppercase tracking-widest bg-sky-50 px-3 py-1 rounded-full border border-sky-100">Atención Directa</span>
+                    <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-navy mt-3 leading-tight">Estamos para asesorarte</h1>
+                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+                        ¿Tienes dudas sobre un predio, deseas alquilar o poner en venta tu propiedad en el Valle Chicama? Comunícate directamente por nuestros canales oficiales.
+                    </p>
                 </div>
-                <div>
-                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1 tracking-wide">Mensaje o Consulta</label>
-                    <textarea rows="4" required placeholder="Ej: Me gustaría recibir más información sobre el terreno en venta en Paiján..." class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500 transition-colors resize-none"></textarea>
+
+                <!-- Tarjetas de Información -->
+                <div class="space-y-4">
+                    <a href="https://wa.me/51900000000" target="_blank" class="flex items-start gap-4 p-4 bg-white border border-slate-200 rounded-xl shadow-sm hover:border-emerald-500 hover:shadow-md transition-all group">
+                        <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-lg flex items-center justify-center font-bold text-lg shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                            💬
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wide">WhatsApp Asesoría</p>
+                            <p class="text-sm font-bold text-slate-800 mt-0.5">+51 900 000 000</p>
+                            <p class="text-xs text-slate-500">Respuesta inmediata en horario comercial</p>
+                        </div>
+                    </a>
+
+                    <div class="flex items-start gap-4 p-4 bg-white border border-slate-200 rounded-xl shadow-sm">
+                        <div class="w-10 h-10 bg-sky-50 text-brand-blue rounded-lg flex items-center justify-center font-bold text-lg shrink-0">
+                            📍
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wide">Oficina Principal</p>
+                            <p class="text-sm font-bold text-slate-800 mt-0.5">Av. Panamericana Norte s/n</p>
+                            <p class="text-xs text-slate-500">Chocope, La Libertad - Perú</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4 p-4 bg-white border border-slate-200 rounded-xl shadow-sm">
+                        <div class="w-10 h-10 bg-sky-50 text-brand-blue rounded-lg flex items-center justify-center font-bold text-lg shrink-0">
+                            🕒
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-wide">Horario de Atención</p>
+                            <p class="text-sm font-bold text-slate-800 mt-0.5">Lunes a Sábado: 8:00 am - 6:00 pm</p>
+                            <p class="text-xs text-slate-500">Domingos previa cita programada</p>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" class="w-full bg-blue-900 hover:bg-blue-800 text-white font-semibold text-sm py-3 rounded-lg shadow-sm transition-all transform active:scale-[0.98]">
-                    Enviar Formulario
-                </button>
-            </form>
+            </div>
+
+            <!-- FORMULARIO DE CONSULTA (7 columnas en LG) -->
+            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl shadow-md p-6 sm:p-8">
+                <h2 class="text-xl font-extrabold text-brand-navy mb-1">Envíanos un mensaje</h2>
+                <p class="text-xs text-slate-500 mb-6">Completa el formulario y te responderemos a la brevedad.</p>
+                
+                <form action="#" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1 tracking-wide">Nombre Completo</label>
+                            <input type="text" required placeholder="Ej: Juan Pérez" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand-cyan transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 mb-1 tracking-wide">Teléfono / WhatsApp</label>
+                            <input type="tel" required placeholder="Ej: 987654321" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand-cyan transition-colors">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1 tracking-wide">Correo Electrónico</label>
+                        <input type="email" required placeholder="ejemplo@correo.com" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand-cyan transition-colors">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1 tracking-wide">Tipo de Consulta</label>
+                        <select class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand-cyan transition-colors font-medium text-slate-700">
+                            <option value="compra">Interés en comprar una propiedad</option>
+                            <option value="alquiler">Interés en alquilar un inmueble</option>
+                            <option value="venta">Deseo poner en venta/alquiler mi propiedad</option>
+                            <option value="otro">Consulta general</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-1 tracking-wide">Mensaje o Detalle</label>
+                        <textarea rows="4" required placeholder="Describe tu consulta o especifica el inmueble de tu interés (Ubicación, presupuesto, etc.)..." class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand-cyan transition-colors resize-none"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-brand-navy hover:bg-brand-blue text-white font-bold text-sm py-3.5 rounded-lg shadow-sm transition-all transform active:scale-[0.99] hover:shadow-glow">
+                        Enviar Consulta
+                    </button>
+                </form>
+            </div>
+
         </div>
     </main>
 
-    <footer class="bg-slate-900 text-slate-400 text-center py-6 text-sm border-t border-slate-800">
-        <p>&copy; 2026 Portal Inmobiliario - Unidad Didáctica de Maquetación Web | IESTP Chocope</p>
+    <!-- PIE DE PÁGINA CORPORATIVO -->
+    <footer class="bg-brand-dark text-slate-400 text-center py-6 text-xs border-t border-slate-800">
+        <p>&copy; 2026 Inmobiliaria AM | Todos los derechos reservados.</p>
     </footer>
+
+    <!-- SCRIPT INTERACTIVO NATIVO -->
+    <script>
+        const btnMenu = document.getElementById('mobile-menu-btn');
+        const menuNav = document.getElementById('mobile-menu');
+
+        if (btnMenu && menuNav) {
+            btnMenu.addEventListener('click', () => {
+                menuNav.classList.toggle('hidden');
+            });
+        }
+    </script>
 </body>
 </html>

@@ -1,4 +1,25 @@
-/* REJILLA AUTOADAPTABLE BASADA EN SÍLABO IESTP CHOCOPE */
+:root {
+  /* Paleta Oficial Inmobiliaria AM */
+  --primary-navy: #0b1e36;
+  --secondary-blue: #0055b8;
+  --accent-cyan: #00a8ff;
+  --accent-cyan-glow: rgba(0, 168, 255, 0.25);
+  
+  --bg-light: #f8fafc;
+  --bg-card: #ffffff;
+  --text-dark: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+
+  /* Tipografía */
+  --font-heading: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  /* Sombra inspirada en el brillo azul del logo */
+  --shadow-sm: 0 2px 8px rgba(11, 30, 54, 0.06);
+  --shadow-glow: 0 4px 20px rgba(0, 168, 255, 0.18);
+  --radius: 8px;
+}
 .property-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));

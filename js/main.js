@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Selectores DOM
+    // -------------------------------------------------------------
+    // SELECTORES DEL DOM
+    // -------------------------------------------------------------
     const botonesFiltro = document.querySelectorAll('.filter-btn');
     const tarjetasPropiedades = document.querySelectorAll('.property-card');
     const preciosPantalla = document.querySelectorAll('.display-price');
@@ -27,19 +29,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBadge = document.getElementById('modal-badge');
     const modalWsp = document.getElementById('modal-wsp');
 
-    // 1. CONMUTADOR DE MONEDA
+    // Menú Hamburguesa Móvil
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    // -------------------------------------------------------------
+    // 1. MENU MÓVIL
+    // -------------------------------------------------------------
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+
+    // -------------------------------------------------------------
+    // 2. CONMUTADOR DE MONEDA (USD / PEN)
+    // -------------------------------------------------------------
     function cambiarMoneda(moneda) {
         divisaActual = moneda;
-        if (moneda === 'USD') {
-            btnUsd.classList.add('bg-blue-950', 'text-white');
-            btnUsd.classList.remove('text-slate-600');
-            btnPen.classList.remove('bg-blue-950', 'text-white');
-            btnPen.classList.add('text-slate-600');
-        } else {
-            btnPen.classList.add('bg-blue-950', 'text-white');
-            btnPen.classList.remove('text-slate-600');
-            btnUsd.classList.remove('bg-blue-950', 'text-white');
-            btnUsd.classList.add('text-slate-600');
+
+        if (btnUsd && btnPen) {
+            if (moneda === 'USD') {
+                btnUsd.classList.add('bg-brand-navy', 'text-white');
+                btnUsd.classList.remove('text-slate-600');
+                btnPen.classList.remove('bg-brand-navy', 'text-white');
+                btnPen.classList.add('text-slate-600');
+            } else {
+                btnPen.classList.add('bg-brand-navy', 'text-white');
+                btnPen.classList.remove('text-slate-600');
+                btnUsd.classList.remove('bg-brand-navy', 'text-white');
+                btnUsd.classList.add('text-slate-600');
+            }
         }
 
         preciosPantalla.forEach(precio => {
@@ -55,19 +75,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    btnUsd.addEventListener('click', () => cambiarMoneda('USD'));
-    btnPen.addEventListener('click', () => cambiarMoneda('PEN'));
+    if (btnUsd && btnPen) {
+        btnUsd.addEventListener('click', () => cambiarMoneda('USD'));
+        btnPen.addEventListener('click', () => cambiarMoneda('PEN'));
+    }
 
-    // 2. MOTOR DE FILTRADO
+    // -------------------------------------------------------------
+    // 3. MOTOR DE FILTRADO Y BÚSQUEDA
+    // -------------------------------------------------------------
     function ejecutarFiltros() {
-        const categoriaActiva = document.querySelector('.filter-btn.active').getAttribute('data-filter');
-        const ubicacionSeleccionada = searchLocation.value;
-        const textoBusqueda = searchText.value.toLowerCase().trim();
+        const botonActivo = document.querySelector('.filter-btn.active');
+        const categoriaActiva = botonActivo ? botonActivo.getAttribute('data-filter') : 'todos';
+        const ubicacionSeleccionada = searchLocation ? searchLocation.value : 'todos';
+        const textoBusqueda = searchText ? searchText.value.toLowerCase().trim() : '';
 
         tarjetasPropiedades.forEach(tarjeta => {
             const catTarjeta = tarjeta.getAttribute('data-category');
             const ubiTarjeta = tarjeta.getAttribute('data-location-tag');
-            const palabrasClave = tarjeta.getAttribute('data-keywords').toLowerCase();
+            const palabrasClave = (tarjeta.getAttribute('data-keywords') || '').toLowerCase();
 
             const cumpleCategoria = (categoriaActiva === 'todos' || catTarjeta === categoriaActiva);
             const cumpleUbicacion = (ubicacionSeleccionada === 'todos' || ubiTarjeta === ubicacionSeleccionada);
@@ -83,19 +108,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     botonesFiltro.forEach(boton => {
         boton.addEventListener('click', () => {
-            botonesFiltro.forEach(b => b.classList.remove('bg-blue-950', 'text-white', 'active'));
-            boton.classList.add('bg-blue-950', 'text-white', 'active');
+            botonesFiltro.forEach(b => {
+                b.classList.remove('bg-brand-navy', 'border-brand-navy', 'text-white', 'active');
+                b.classList.add('bg-white', 'border-slate-200', 'text-slate-700');
+            });
+
+            boton.classList.remove('bg-white', 'border-slate-200', 'text-slate-700');
+            boton.classList.add('bg-brand-navy', 'border-brand-navy', 'text-white', 'active');
+            
             ejecutarFiltros();
         });
     });
 
-    btnSearch.addEventListener('click', ejecutarFiltros);
-    searchText.addEventListener('keyup', (e) => { if (e.key === 'Enter') ejecutarFiltros(); });
+    if (btnSearch) {
+        btnSearch.addEventListener('click', ejecutarFiltros);
+    }
 
-    // 3. CONTROL DEL MODAL
+    if (searchText) {
+        searchText.addEventListener('keyup', (e) => { 
+            if (e.key === 'Enter') ejecutarFiltros(); 
+        });
+    }
+
+    // -------------------------------------------------------------
+    // 4. CONTROL DEL MODAL DE DETALLES
+    // -------------------------------------------------------------
     botonesDetalles.forEach(boton => {
         boton.addEventListener('click', (e) => {
             const tarjetaPadre = e.target.closest('.property-card');
+            if (!tarjetaPadre || !modal) return;
             
             const titulo = tarjetaPadre.getAttribute('data-title');
             const precioUsd = parseFloat(tarjetaPadre.getAttribute('data-price-usd')).toLocaleString('en-US');
@@ -106,35 +147,37 @@ document.addEventListener('DOMContentLoaded', () => {
             const desc = tarjetaPadre.getAttribute('data-description');
             const cat = tarjetaPadre.getAttribute('data-category');
 
-            modalTitle.textContent = titulo;
-            modalAddress.textContent = `📍 ${direccion}`;
-            modalSpecs.textContent = `Metraje: ${area} • ${specs}`;
-            modalDescription.textContent = desc;
-            modalBadge.textContent = cat;
+            if (modalTitle) modalTitle.textContent = titulo;
+            if (modalAddress) modalAddress.textContent = `📍 ${direccion}`;
+            if (modalSpecs) modalSpecs.textContent = `Metraje: ${area} • ${specs}`;
+            if (modalDescription) modalDescription.textContent = desc;
+            if (modalBadge) modalBadge.textContent = cat;
 
             const esAlquiler = tarjetaPadre.innerText.includes('/mes');
-            if (divisaActual === 'USD') {
-                modalPrice.textContent = `$${precioUsd} ${esAlquiler ? '/mes' : ''}`;
-            } else {
-                modalPrice.textContent = `S/. ${precioPen} ${esAlquiler ? '/mes' : ''}`;
+            if (modalPrice) {
+                if (divisaActual === 'USD') {
+                    modalPrice.textContent = `$${precioUsd} ${esAlquiler ? '/mes' : ''}`;
+                } else {
+                    modalPrice.textContent = `S/. ${precioPen} ${esAlquiler ? '/mes' : ''}`;
+                }
             }
 
-            const mensajeWsp = encodeURIComponent(`Hola InmoChocope, me interesa la propiedad: "${titulo}". Quisiera agendar una visita.`);
-            modalWsp.href = `https://api.whatsapp.com/send?phone=51999999999&text=${mensajeWsp}`;
+            if (modalWsp) {
+                const mensajeWsp = encodeURIComponent(`Hola Inmobiliaria AM, me interesa la propiedad: "${titulo}". Quisiera agendar una visita.`);
+                modalWsp.href = `https://api.whatsapp.com/send?phone=51900000000&text=${mensajeWsp}`;
+            }
 
             modal.classList.remove('hidden');
         });
     });
 
-    btnCerrarModal.addEventListener('click', () => modal.classList.add('hidden'));
-    window.addEventListener('click', (e) => { if (e.target === modal) modal.classList.add('hidden'); });
-});
-// Control del Menú Hamburguesa Móvil
-    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
+    if (btnCerrarModal && modal) {
+        btnCerrarModal.addEventListener('click', () => modal.classList.add('hidden'));
+    }
 
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+    if (modal) {
+        window.addEventListener('click', (e) => { 
+            if (e.target === modal) modal.classList.add('hidden'); 
         });
     }
+});
