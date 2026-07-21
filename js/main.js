@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // -------------------------------------------------------------
-    // SELECTORES DEL DOM
-    // -------------------------------------------------------------
+    // Selectores DOM
     const botonesFiltro = document.querySelectorAll('.filter-btn');
     const tarjetasPropiedades = document.querySelectorAll('.property-card');
     const preciosPantalla = document.querySelectorAll('.display-price');
@@ -16,35 +14,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchText = document.getElementById('search-text');
     const btnSearch = document.getElementById('btn-search');
 
-    // Controles Modal
+    // Controles Modal Extendido
     const modal = document.getElementById('modal-details');
     const btnCerrarModal = document.getElementById('modal-close');
     const botonesDetalles = document.querySelectorAll('.btn-details');
 
     const modalTitle = document.getElementById('modal-title');
     const modalPrice = document.getElementById('modal-price');
-    const modalAddress = document.getElementById('modal-address');
     const modalSpecs = document.getElementById('modal-specs');
     const modalDescription = document.getElementById('modal-description');
     const modalBadge = document.getElementById('modal-badge');
+    const modalLocationTag = document.getElementById('modal-location-tag');
+    const modalCrumbCat = document.getElementById('modal-crumb-cat');
+    const modalCrumbTitle = document.getElementById('modal-crumb-title');
+    const modalAddressVal = document.getElementById('modal-address-val');
+    const modalAreaVal = document.getElementById('modal-area-val');
     const modalWsp = document.getElementById('modal-wsp');
+    const modalFormMsg = document.getElementById('modal-form-msg');
+    const modalContactForm = document.getElementById('modal-contact-form');
+
+    // Elementos Galería Modal
+    const modalMainImg = document.getElementById('modal-main-img');
+    const modalThumbs = document.querySelectorAll('.modal-gallery-thumb');
 
     // Menú Hamburguesa Móvil
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
 
-    // -------------------------------------------------------------
-    // 1. MENU MÓVIL
-    // -------------------------------------------------------------
+    // 1. MENÚ MÓVIL
     if (mobileMenuBtn && mobileMenu) {
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
     }
 
-    // -------------------------------------------------------------
     // 2. CONMUTADOR DE MONEDA (USD / PEN)
-    // -------------------------------------------------------------
     function cambiarMoneda(moneda) {
         divisaActual = moneda;
 
@@ -80,9 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btnPen.addEventListener('click', () => cambiarMoneda('PEN'));
     }
 
-    // -------------------------------------------------------------
-    // 3. MOTOR DE FILTRADO Y BÚSQUEDA
-    // -------------------------------------------------------------
+    // 3. FILTRADO Y BÚSQUEDA
     function ejecutarFiltros() {
         const botonActivo = document.querySelector('.filter-btn.active');
         const categoriaActiva = botonActivo ? botonActivo.getAttribute('data-filter') : 'todos';
@@ -130,14 +132,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // -------------------------------------------------------------
-    // 4. CONTROL DEL MODAL DE DETALLES
-    // -------------------------------------------------------------
+    // 4. LÓGICA DE GALERÍA EN MODAL (CAMBIO DE IMAGEN AL HACER CLIC EN MINIATURA)
+    modalThumbs.forEach(thumb => {
+        thumb.addEventListener('click', () => {
+            if (modalMainImg) {
+                modalMainImg.src = thumb.src;
+            }
+            modalThumbs.forEach(t => {
+                t.classList.remove('border-brand-cyan', 'border-2');
+                t.classList.add('border-slate-200', 'border');
+            });
+            thumb.classList.remove('border-slate-200', 'border');
+            thumb.classList.add('border-brand-cyan', 'border-2');
+        });
+    });
+
+    // 5. APERTURA Y CARGA DEL MODAL ESTILO "NEXO INMOBILIARIO"
     botonesDetalles.forEach(boton => {
         boton.addEventListener('click', (e) => {
             const tarjetaPadre = e.target.closest('.property-card');
             if (!tarjetaPadre || !modal) return;
-            
+
             const titulo = tarjetaPadre.getAttribute('data-title');
             const precioUsd = parseFloat(tarjetaPadre.getAttribute('data-price-usd')).toLocaleString('en-US');
             const precioPen = parseFloat(tarjetaPadre.getAttribute('data-price-pen')).toLocaleString('es-PE');
@@ -147,11 +162,38 @@ document.addEventListener('DOMContentLoaded', () => {
             const desc = tarjetaPadre.getAttribute('data-description');
             const cat = tarjetaPadre.getAttribute('data-category');
 
+            // Obtener URLs de imágenes múltiples
+            const img1 = tarjetaPadre.getAttribute('data-img1') || tarjetaPadre.querySelector('img').src;
+            const img2 = tarjetaPadre.getAttribute('data-img2') || img1;
+            const img3 = tarjetaPadre.getAttribute('data-img3') || img1;
+
+            // Asignar imágenes a la galería
+            if (modalMainImg) modalMainImg.src = img1;
+            if (modalThumbs[0]) modalThumbs[0].src = img1;
+            if (modalThumbs[1]) modalThumbs[1].src = img2;
+            if (modalThumbs[2]) modalThumbs[2].src = img3;
+
+            // Resetear bordes de miniaturas
+            modalThumbs.forEach((t, index) => {
+                if (index === 0) {
+                    t.classList.add('border-brand-cyan', 'border-2');
+                    t.classList.remove('border-slate-200');
+                } else {
+                    t.classList.remove('border-brand-cyan', 'border-2');
+                    t.classList.add('border-slate-200');
+                }
+            });
+
+            // Llenar textos del modal
             if (modalTitle) modalTitle.textContent = titulo;
-            if (modalAddress) modalAddress.textContent = `📍 ${direccion}`;
-            if (modalSpecs) modalSpecs.textContent = `Metraje: ${area} • ${specs}`;
-            if (modalDescription) modalDescription.textContent = desc;
+            if (modalCrumbTitle) modalCrumbTitle.textContent = titulo;
+            if (modalCrumbCat) modalCrumbCat.textContent = cat;
             if (modalBadge) modalBadge.textContent = cat;
+            if (modalLocationTag) modalLocationTag.textContent = direccion;
+            if (modalAddressVal) modalAddressVal.textContent = direccion;
+            if (modalAreaVal) modalAreaVal.textContent = area;
+            if (modalSpecs) modalSpecs.textContent = `${area} • ${specs}`;
+            if (modalDescription) modalDescription.textContent = desc;
 
             const esAlquiler = tarjetaPadre.innerText.includes('/mes');
             if (modalPrice) {
@@ -162,22 +204,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            if (modalWsp) {
-                const mensajeWsp = encodeURIComponent(`Hola Inmobiliaria AM, me interesa la propiedad: "${titulo}". Quisiera agendar una visita.`);
-                modalWsp.href = `https://api.whatsapp.com/send?phone=51900000000&text=${mensajeWsp}`;
+            // Mensaje predeterminado para el formulario y WhatsApp
+            const textoMensaje = `Hola Inmobiliaria AM, estoy interesado en el inmueble "${titulo}" (${direccion}). Deseo mayor información y coordinar una visita.`;
+            
+            if (modalFormMsg) {
+                modalFormMsg.value = textoMensaje;
             }
 
+            if (modalWsp) {
+                modalWsp.href = `https://api.whatsapp.com/send?phone=51900000000&text=${encodeURIComponent(textoMensaje)}`;
+            }
+
+            // Mostrar Modal
             modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden'); // Bloquear scroll del fondo
         });
     });
 
-    if (btnCerrarModal && modal) {
-        btnCerrarModal.addEventListener('click', () => modal.classList.add('hidden'));
+    // Cierre del modal
+    function cerrarModal() {
+        if (modal) {
+            modal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+    }
+
+    if (btnCerrarModal) {
+        btnCerrarModal.addEventListener('click', cerrarModal);
     }
 
     if (modal) {
-        window.addEventListener('click', (e) => { 
-            if (e.target === modal) modal.classList.add('hidden'); 
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) cerrarModal();
+        });
+    }
+
+    if (modalContactForm) {
+        modalContactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('¡Gracias! Tu consulta ha sido registrada. Un asesor de Inmobiliaria AM se pondrá en contacto contigo.');
+            cerrarModal();
         });
     }
 });

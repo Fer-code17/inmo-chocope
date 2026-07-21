@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nosotros | Inmobiliaria AM</title>
     
-    <!-- TAILWIND CSS CDN + CONFIGURACIÓN DE PALETA AM -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -31,21 +30,22 @@
 </head>
 <body class="flex flex-col h-full text-slate-800 bg-brand-light">
 
-    <!-- CABECERA PRINCIPAL CON LOGO AM -->
+    <!-- CABECERA PRINCIPAL CON LOGO -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <a href="index.html" class="text-2xl font-extrabold text-brand-navy tracking-tight">
-                Inmobiliaria <span class="text-brand-cyan font-black border-b-2 border-brand-cyan">AM</span>
+            <a href="index.html" class="flex items-center gap-3 group">
+                <img src="img/logo.jpg" alt="Inmobiliaria AM Logo" class="h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-105">
+                <span class="text-xl sm:text-2xl font-extrabold text-brand-navy tracking-tight">
+                    Inmobiliaria <span class="text-brand-cyan font-black border-b-2 border-brand-cyan">AM</span>
+                </span>
             </a>
             
-            <!-- Botón Hamburguesa (Móvil) -->
             <button id="mobile-menu-btn" class="md:hidden text-slate-700 hover:text-brand-navy focus:outline-none p-2" aria-label="Abrir menú">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </button>
 
-            <!-- Menú Escritorio -->
             <nav class="hidden md:flex space-x-6 text-sm font-semibold text-slate-600">
                 <a href="index.html" class="hover:text-brand-blue transition-colors px-1 py-5">Catálogo</a>
                 <a href="nosotros.html" class="text-brand-blue border-b-2 border-brand-cyan px-1 py-5">Nosotros</a>
@@ -53,7 +53,6 @@
             </nav>
         </div>
 
-        <!-- Menú Desplegable Móvil -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2">
             <a href="index.html" class="block py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 px-3 rounded-lg">Catálogo</a>
             <a href="nosotros.html" class="block py-2 text-sm font-bold text-brand-blue bg-slate-50 px-3 rounded-lg">Nosotros</a>
@@ -64,20 +63,17 @@
     <!-- SECCIÓN PRINCIPAL SOBRE NOSOTROS -->
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 w-full">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            
-            <!-- Texto e Historia -->
             <div>
                 <span class="text-xs font-bold text-brand-cyan uppercase tracking-widest bg-sky-50 px-3 py-1 rounded-full border border-sky-100">Nuestra Trayectoria</span>
                 <h1 class="text-3xl sm:text-4xl font-extrabold text-brand-navy mt-4 mb-4 leading-tight">Líderes en Gestión Inmobiliaria en el Valle Chicama</h1>
                 
                 <p class="text-slate-600 mb-4 text-justify leading-relaxed text-sm sm:text-base">
-                    En <strong>Inmobiliaria AM</strong> nos enfocamos en conectar personas con oportunidades reales de inversión y vivienda en todo el Valle Chicama. Nacimos como una iniciativa de modernización tecnológica concebida en las aulas del IESTP Chocope, con la meta de ofrecer una plataforma digital rápida, ágil y perfectamente adaptada a dispositivos móviles.
+                    En <strong>Inmobiliaria AM</strong> nos enfocamos en conectar personas con oportunidades reales de inversión y vivienda en todo el Valle Chicama. Nacimos como una iniciativa de modernización tecnológica concebida en las aulas del IESTP Chocope, con la meta de ofrecer una plataforma digital rápida, ágil y adaptada a dispositivos móviles.
                 </p>
                 <p class="text-slate-600 mb-6 text-justify leading-relaxed text-sm sm:text-base">
                     Promovemos la transparencia y el asesoramiento ético en la compra, venta y alquiler de predios agrícolas en Paiján, lotes urbanos en Macabí, residencias en Chocope y propiedades estratégicas en Ascope.
                 </p>
                 
-                <!-- Métricas Destacadas -->
                 <div class="grid grid-cols-2 gap-4 pt-2">
                     <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm hover:border-brand-cyan transition-colors">
                         <p class="text-3xl font-black text-brand-navy">100%</p>
@@ -90,7 +86,6 @@
                 </div>
             </div>
 
-            <!-- Imagen Principal con Glow -->
             <div class="relative h-80 md:h-[460px] rounded-2xl overflow-hidden shadow-xl border border-slate-200 group">
                 <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80" alt="Oficina Inmobiliaria AM" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                 <div class="absolute inset-0 bg-gradient-to-t from-brand-navy/60 via-transparent to-transparent"></div>
@@ -128,16 +123,6 @@
         <p>&copy; 2026 Inmobiliaria AM | Todos los derechos reservados.</p>
     </footer>
 
-    <!-- SCRIPT INTERACTIVO NATIVO -->
-    <script>
-        const btnMenu = document.getElementById('mobile-menu-btn');
-        const menuNav = document.getElementById('mobile-menu');
-
-        if (btnMenu && menuNav) {
-            btnMenu.addEventListener('click', () => {
-                menuNav.classList.toggle('hidden');
-            });
-        }
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
