@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inmobiliaria AM | Tu propiedad ideal en el Valle Chicama</title>
+    <title>Catálogo Inmobiliario | Inmobiliaria AM - Valle Chicama</title>
     
     <!-- TAILWIND CSS CDN + CONFIGURACIÓN DE PALETA AM -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -48,10 +48,10 @@
                 </svg>
             </button>
 
-            <!-- NAVEGACIÓN DESKTOP (Incluye Catálogo) -->
+            <!-- NAVEGACIÓN DESKTOP -->
             <nav class="hidden md:flex space-x-6 text-sm font-semibold text-slate-600">
-                <a href="index.html" class="text-brand-blue border-b-2 border-brand-cyan px-1 py-5">Home</a>
-                <a href="catalogo.html" class="hover:text-brand-blue transition-colors px-1 py-5">Catálogo</a>
+                <a href="index.html" class="hover:text-brand-blue transition-colors px-1 py-5">Home</a>
+                <a href="catalogo.html" class="text-brand-blue border-b-2 border-brand-cyan px-1 py-5 font-bold">Catálogo</a>
                 <a href="nosotros.html" class="hover:text-brand-blue transition-colors px-1 py-5">Nosotros</a>
                 <a href="contacto.html" class="hover:text-brand-blue transition-colors px-1 py-5">Contacto</a>
             </nav>
@@ -59,142 +59,64 @@
 
         <!-- NAVEGACIÓN MÓVIL -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2">
-            <a href="index.html" class="block py-2 text-sm font-bold text-brand-blue bg-slate-50 px-3 rounded-lg">Home</a>
-            <a href="catalogo.html" class="block py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 px-3 rounded-lg">Catálogo</a>
+            <a href="index.html" class="block py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 px-3 rounded-lg">Home</a>
+            <a href="catalogo.html" class="block py-2 text-sm font-bold text-brand-blue bg-slate-50 px-3 rounded-lg">Catálogo</a>
             <a href="nosotros.html" class="block py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 px-3 rounded-lg">Nosotros</a>
             <a href="contacto.html" class="block py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50 px-3 rounded-lg">Contacto</a>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
-    <section class="relative bg-brand-navy text-white py-12 md:py-16">
-        <div class="absolute inset-0 opacity-20 pointer-events-none">
-            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1600&q=80" alt="Fondo Inmobiliaria" class="w-full h-full object-cover">
-        </div>
+    <!-- CONTENIDO DEL CATÁLOGO -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
         
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mb-8 text-center md:text-left">
-                <span class="inline-block bg-brand-cyan/20 text-brand-cyan font-bold text-xs px-3 py-1 rounded-full border border-brand-cyan/30 uppercase tracking-widest mb-3">
-                    Especialistas en el Valle Chicama
-                </span>
-                <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight">
-                    Encuentra terrenos, casas y locales con seguridad legal
-                </h1>
-                <p class="text-slate-300 text-sm sm:text-base mt-3 max-w-2xl font-normal leading-relaxed">
-                    Conectamos la oferta inmobiliaria de Chocope, Paiján, Ascope y Macabí con compradores e inversionistas de todo el país.
-                </p>
+        <!-- TÍTULO Y CABECERA DEL CATÁLOGO -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div>
+                <span class="text-xs font-bold text-brand-cyan uppercase tracking-widest bg-sky-50 px-3 py-1 rounded-full border border-sky-100">Portafolio Inmobiliario</span>
+                <h1 class="text-3xl sm:text-4xl font-black text-brand-navy mt-2">Catálogo General de Propiedades</h1>
+                <p class="text-slate-500 text-sm mt-1">Explora nuestro inventario completo de casas, terrenos y locales en el Valle Chicama.</p>
             </div>
 
-            <!-- CARD DE BÚSQUEDA INTEGRADA -->
-            <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-2xl text-slate-800 border border-slate-100">
-                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-4 border-b border-slate-100 mb-4">
-                    <span class="text-xs font-bold text-brand-navy uppercase tracking-wider">🔍 Buscador Inteligente</span>
-                    
-                    <div class="flex items-center gap-2 bg-slate-100 p-1 rounded-xl border border-slate-200">
-                        <span class="text-[11px] font-bold text-slate-500 px-2">Moneda:</span>
-                        <button id="currency-usd" class="px-3 py-1 text-xs font-bold rounded-lg transition-colors bg-brand-navy text-white">USD ($)</button>
-                        <button id="currency-pen" class="px-3 py-1 text-xs font-bold rounded-lg transition-colors text-slate-600 hover:text-brand-navy">PEN (S/.)</button>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
-                    <div class="md:col-span-4">
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Ubicación</label>
-                        <select id="search-location" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2.5 text-sm font-medium focus:outline-none focus:border-brand-cyan">
-                            <option value="todos">Todas las ubicaciones</option>
-                            <option value="chocope">Chocope</option>
-                            <option value="paijan">Paiján</option>
-                            <option value="ascope">Ascope</option>
-                            <option value="macabi">Macabí Alto/Bajo</option>
-                        </select>
-                    </div>
-
-                    <div class="md:col-span-6">
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Palabra clave</label>
-                        <input id="search-text" type="text" placeholder="Ej: terreno agrícola, casa céntrica, alquiler..." class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-brand-cyan">
-                    </div>
-
-                    <div class="md:col-span-2 flex items-end">
-                        <button id="btn-search" class="w-full bg-brand-navy hover:bg-brand-blue text-white text-sm font-bold py-2.5 px-4 rounded-lg transition-all shadow-md hover:shadow-glow">
-                            Buscar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BARRA DE DATOS DESTACADOS -->
-    <section class="bg-white border-b border-slate-200 py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div class="p-2">
-                <p class="text-2xl font-black text-brand-navy">100%</p>
-                <p class="text-xs text-slate-500 font-semibold mt-0.5">Asesoría Transparente</p>
-            </div>
-            <div class="p-2 border-l border-slate-100">
-                <p class="text-2xl font-black text-brand-blue">+50</p>
-                <p class="text-xs text-slate-500 font-semibold mt-0.5">Predios Gestionados</p>
-            </div>
-            <div class="p-2 border-l border-slate-100">
-                <p class="text-2xl font-black text-brand-cyan">Valley Wide</p>
-                <p class="text-xs text-slate-500 font-semibold mt-0.5">Cobertura Ascope / Paiján</p>
-            </div>
-            <div class="p-2 border-l border-slate-100">
-                <p class="text-2xl font-black text-emerald-600">Directo</p>
-                <p class="text-xs text-slate-500 font-semibold mt-0.5">Trato con Propietarios</p>
-            </div>
-        </div>
-    </section>
-
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
-        
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-4">
-            <div class="w-full">
-                <span class="text-xs font-bold text-brand-cyan uppercase tracking-widest bg-sky-50 px-3 py-1 rounded-full border border-sky-100">Portafolio Actualizado</span>
-                
-                <div class="flex items-center justify-between w-full mt-2">
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-brand-navy">Los más buscados</h2>
-                    
-                    <a href="catalogo.html" class="inline-flex items-center gap-1 text-sm font-bold text-brand-blue hover:text-brand-cyan transition-colors">
-                        <span>Ver todas</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                        </svg>
-                    </a>
-                </div>
+            <!-- CAMBIADOR DE MONEDA -->
+            <div class="flex items-center gap-2 bg-white p-1.5 rounded-xl border border-slate-200 shadow-sm self-start md:self-auto">
+                <span class="text-xs font-bold text-slate-500 px-2">Moneda:</span>
+                <button id="currency-usd" class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors bg-brand-navy text-white">USD ($)</button>
+                <button id="currency-pen" class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors text-slate-600 hover:text-brand-navy">PEN (S/.)</button>
             </div>
         </div>
 
-        <!-- GRILLA DE PROPIEDADES -->
-        <section id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- FILTROS Y BARRA DE BÚSQUEDA -->
+        <div class="bg-white p-5 rounded-2xl shadow-card border border-slate-200 mb-8 flex flex-col lg:flex-row gap-4 justify-between items-center">
             
-            <!-- TARJETA 1 -->
-            <article class="property-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-card hover:shadow-xl transition-all group duration-300"
-                     data-category="terrenos" data-location-tag="paijan" data-keywords="terreno agricola paijan valle chicama cultivo amplio"
-                     data-title="Terreno Agrícola Extenso" data-price-usd="45000" data-price-pen="171000"
-                     data-address="Sector Mocollope, Paiján" data-area="5,000 m²" data-specs="Agua de regadío • Título independizado"
-                     data-img1="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80"
-                     data-img2="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=800&q=80"
-                     data-img3="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=800&q=80"
-                     data-description="Excelente terreno con vocación agrícola y acceso a canal de regadío principal en Paiján. Cuenta con documentos independizados en SUNARP, acceso por vía afirmada y óptimo rendimiento para siembra o desarrollo agroindustrial.">
-                <div class="relative h-52 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80" alt="Terreno Paijan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <span class="absolute top-3 left-3 bg-brand-navy text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Terrenos</span>
-                </div>
-                <div class="p-5">
-                    <h3 class="font-bold text-brand-navy text-lg leading-snug">Terreno Agrícola Extenso</h3>
-                    <p class="text-xs text-slate-500 mt-1 flex items-center gap-1">📍 Sector Mocollope, Paiján</p>
-                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                        <div>
-                            <p class="text-[10px] text-slate-400 font-bold uppercase">Precio</p>
-                            <p class="display-price text-xl font-extrabold text-brand-blue" data-usd="45000" data-pen="171000">$45,000</p>
-                        </div>
-                        <button class="btn-details bg-slate-100 hover:bg-brand-cyan hover:text-white text-brand-navy text-xs font-bold px-3.5 py-2 rounded-lg transition-colors">Ver Detalle</button>
-                    </div>
-                </div>
-            </article>
+            <!-- Buscador por Palabra Clave / Ubicación -->
+            <div class="w-full lg:w-96 relative">
+                <input id="search-text" type="text" placeholder="Buscar por ubicación, ciudad o tipo..." class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand-cyan transition-colors">
+                <svg class="w-5 h-5 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </div>
 
-            <!-- TARJETA 2 -->
+            <!-- Selector Ubicación -->
+            <div class="w-full lg:w-56">
+                <select id="search-location" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-medium focus:outline-none focus:border-brand-cyan">
+                    <option value="todos">Todas las ubicaciones</option>
+                    <option value="chocope">Chocope</option>
+                    <option value="paijan">Paiján</option>
+                    <option value="ascope">Ascope</option>
+                    <option value="macabi">Macabí</option>
+                </select>
+            </div>
+
+            <!-- Botón Disparador de Búsqueda -->
+            <button id="btn-search" class="w-full lg:w-auto bg-brand-navy hover:bg-brand-blue text-white text-xs font-bold px-6 py-3 rounded-xl transition-all shadow-md">
+                Filtrar Inmuebles
+            </button>
+        </div>
+
+        <!-- GRILLA COMPLETA DE PROPIEDADES -->
+        <section id="properties-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- PROPIEDAD 1: CASA CHOCOPE -->
             <article class="property-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-card hover:shadow-xl transition-all group duration-300"
                      data-category="casas" data-location-tag="chocope" data-keywords="casa residencial chocope centro cochera patio"
                      data-title="Casa Residencial Céntrica" data-price-usd="85000" data-price-pen="323000"
@@ -220,7 +142,33 @@
                 </div>
             </article>
 
-            <!-- TARJETA 3 -->
+            <!-- PROPIEDAD 2: TERRENO PAIJAN -->
+            <article class="property-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-card hover:shadow-xl transition-all group duration-300"
+                     data-category="terrenos" data-location-tag="paijan" data-keywords="terreno agricola paijan valle chicama cultivo amplio"
+                     data-title="Terreno Agrícola Extenso" data-price-usd="45000" data-price-pen="171000"
+                     data-address="Sector Mocollope, Paiján" data-area="5,000 m²" data-specs="Agua de regadío • Título independizado"
+                     data-img1="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80"
+                     data-img2="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=800&q=80"
+                     data-img3="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=800&q=80"
+                     data-description="Excelente terreno con vocación agrícola y acceso a canal de regadío principal en Paiján. Cuenta con documentos independizados en SUNARP, acceso por vía afirmada y óptimo rendimiento para siembra o desarrollo agroindustrial.">
+                <div class="relative h-52 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600&q=80" alt="Terreno Paijan" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute top-3 left-3 bg-brand-navy text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Terrenos</span>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-brand-navy text-lg leading-snug">Terreno Agrícola Extenso</h3>
+                    <p class="text-xs text-slate-500 mt-1 flex items-center gap-1">📍 Sector Mocollope, Paiján</p>
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Precio</p>
+                            <p class="display-price text-xl font-extrabold text-brand-blue" data-usd="45000" data-pen="171000">$45,000</p>
+                        </div>
+                        <button class="btn-details bg-slate-100 hover:bg-brand-cyan hover:text-white text-brand-navy text-xs font-bold px-3.5 py-2 rounded-lg transition-colors">Ver Detalle</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROPIEDAD 3: LOCAL ASCOPE -->
             <article class="property-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-card hover:shadow-xl transition-all group duration-300"
                      data-category="alquiler" data-location-tag="ascope" data-keywords="alquiler local comercial ascope centro plaza"
                      data-title="Local Comercial Estratégico" data-price-usd="400" data-price-pen="1520"
@@ -246,28 +194,92 @@
                 </div>
             </article>
 
+            <!-- PROPIEDAD 4: LOTE MACABI -->
+            <article class="property-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-card hover:shadow-xl transition-all group duration-300"
+                     data-category="terrenos" data-location-tag="macabi" data-keywords="lote urbano macabi alto terreno construir luz agua"
+                     data-title="Lote Urbano Macabí Alto" data-price-usd="18000" data-price-pen="68400"
+                     data-address="Sector Macabí Alto, Paiján" data-area="160 m²" data-specs="Servicios básicos • Título de propiedad"
+                     data-img1="https://plus.unsplash.com/premium_photo-1673240159028-1ddae0a75009?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                     data-img2="https://plus.unsplash.com/premium_photo-1754251482499-f6f2feba1159?q=80&w=1871&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                     data-img3="https://plus.unsplash.com/premium_photo-1754255028862-262073c1ca46?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                     data-description="Terreno urbano habilitado para edificación inmediata de vivienda. Ubicado en una zona tranquila de Macabí Alto con proyección de revalorización, cuenta con conexión a agua, luz y alcantarillado a la puerta.">
+                <div class="relative h-52 overflow-hidden">
+                    <img src="https://plus.unsplash.com/premium_photo-1673240159028-1ddae0a75009?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Lote Macabí" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute top-3 left-3 bg-brand-navy text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Terrenos</span>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-brand-navy text-lg leading-snug">Lote Urbano Macabí Alto</h3>
+                    <p class="text-xs text-slate-500 mt-1 flex items-center gap-1">📍 Sector Macabí Alto, Paiján</p>
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Precio</p>
+                            <p class="display-price text-xl font-extrabold text-brand-blue" data-usd="18000" data-pen="68400">$18,000</p>
+                        </div>
+                        <button class="btn-details bg-slate-100 hover:bg-brand-cyan hover:text-white text-brand-navy text-xs font-bold px-3.5 py-2 rounded-lg transition-colors">Ver Detalle</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROPIEDAD 5: CASA CAMPESTRE -->
+            <article class="property-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-card hover:shadow-xl transition-all group duration-300"
+                     data-category="casas" data-location-tag="chocope" data-keywords="casa campestre chocope jardin piscina amplio"
+                     data-title="Casa Quinta Campestre" data-price-usd="120000" data-price-pen="456000"
+                     data-address="Carretera Panamericana Norte, Chocope" data-area="450 m²" data-specs="4 Hab. • 3 Baños • Jardín amplio"
+                     data-img1="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800"
+                     data-img2="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800"
+                     data-img3="https://images.unsplash.com/photo-1719324924230-63781a3f18b9?w=800"
+                     data-description="Exclusiva propiedad tipo quinta campestre a pocos minutos del centro urbano de Chocope. Diseñada para descanso con amplias áreas verdes, zona para parrillas, estacionamiento para varios vehículos y acabados rústicos de primera.">
+                <div class="relative h-52 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600" alt="Casa Campestre" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute top-3 left-3 bg-brand-navy text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Casas</span>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-brand-navy text-lg leading-snug">Casa Quinta Campestre</h3>
+                    <p class="text-xs text-slate-500 mt-1 flex items-center gap-1">📍 Panamericana Norte, Chocope</p>
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Precio</p>
+                            <p class="display-price text-xl font-extrabold text-brand-blue" data-usd="120000" data-pen="456000">$120,000</p>
+                        </div>
+                        <button class="btn-details bg-slate-100 hover:bg-brand-cyan hover:text-white text-brand-navy text-xs font-bold px-3.5 py-2 rounded-lg transition-colors">Ver Detalle</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROPIEDAD 6: TERRENO INDUSTRIAL -->
+            <article class="property-card bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-card hover:shadow-xl transition-all group duration-300"
+                     data-category="terrenos" data-location-tag="ascope" data-keywords="terreno industrial almacenes ascope carretera"
+                     data-title="Terreno Industrial / Almacén" data-price-usd="95000" data-price-pen="361000"
+                     data-address="Ingreso Principal a Ascope" data-area="2,500 m²" data-specs="Acceso a tráileres • Zona industrial"
+                     data-img1="https://images.unsplash.com/photo-1591389703635-e15a07b842d7?q=80&w=1333&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                     data-img2="https://images.unsplash.com/photo-1669892680581-08abeccf17b4?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                     data-img3="https://images.unsplash.com/photo-1669892681327-2c93be6d8642?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                     data-description="Estratégico predio para fin industrial o logístico. Cuenta con cerco perimétrico parcial, fácil maniobra para camiones de alto tonelaje y conectividad directa a la ruta troncal del Valle Chicama.">
+                <div class="relative h-52 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1591389703635-e15a07b842d7?q=80&w=1333&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                    <span class="absolute top-3 left-3 bg-brand-navy text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Terrenos</span>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-brand-navy text-lg leading-snug">Terreno Industrial / Almacén</h3>
+                    <p class="text-xs text-slate-500 mt-1 flex items-center gap-1">📍 Ingreso Principal, Ascope</p>
+                    <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Precio</p>
+                            <p class="display-price text-xl font-extrabold text-brand-blue" data-usd="95000" data-pen="361000">$95,000</p>
+                        </div>
+                        <button class="btn-details bg-slate-100 hover:bg-brand-cyan hover:text-white text-brand-navy text-xs font-bold px-3.5 py-2 rounded-lg transition-colors">Ver Detalle</button>
+                    </div>
+                </div>
+            </article>
+
         </section>
 
-        <!-- CONTENEDOR 'SIN RESULTADOS' PARA EL FILTRADOR JS -->
+        <!-- CONTENEDOR 'SIN RESULTADOS' -->
         <div id="no-results" class="hidden text-center py-12 bg-white rounded-2xl border border-slate-200 mt-6">
             <p class="text-4xl mb-2">🔍</p>
             <h3 class="text-lg font-bold text-brand-navy">No encontramos propiedades con esos criterios</h3>
-            <p class="text-xs text-slate-500 mt-1">Prueba cambiando la ubicación o eliminando la palabra clave.</p>
+            <p class="text-xs text-slate-500 mt-1">Prueba cambiando la ubicación o eliminando el filtro de búsqueda.</p>
         </div>
-
-        <!-- BANNER DE LLAMADA A LA ACCIÓN -->
-        <section class="mt-16 bg-gradient-to-r from-brand-navy via-brand-blue to-brand-navy rounded-3xl p-8 sm:p-12 text-white text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
-            <div class="max-w-xl">
-                <span class="text-xs font-bold text-brand-cyan uppercase tracking-widest bg-white/10 px-3 py-1 rounded-full border border-white/20">¿Tienes un inmueble?</span>
-                <h3 class="text-2xl sm:text-3xl font-black mt-3">¿Deseas vender o alquilar tu propiedad en el Valle Chicama?</h3>
-                <p class="text-slate-200 text-xs sm:text-sm mt-2 leading-relaxed">
-                    Te ayudamos a promocionarlo de manera profesional y formal. Nos encargamos del filtrado de clientes e interesados.
-                </p>
-            </div>
-            <a href="contacto.html" class="bg-brand-cyan hover:bg-sky-400 text-white font-bold text-sm px-6 py-4 rounded-xl shadow-lg hover:shadow-glow transition-all shrink-0">
-                Publicar mi Inmueble
-            </a>
-        </section>
 
     </main>
 
@@ -275,7 +287,6 @@
     <div id="modal-details" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
         <div class="bg-white rounded-3xl max-w-6xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-100 relative my-auto">
             
-            <!-- Encabezado Fijo -->
             <div class="sticky top-0 bg-white/95 backdrop-blur-md z-20 px-6 py-4 border-b border-slate-100 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <span id="modal-badge" class="bg-brand-navy text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Categoría</span>
@@ -285,22 +296,17 @@
             </div>
 
             <div class="p-6 sm:p-8">
-                <!-- Breadcrumbs -->
                 <nav class="text-xs text-slate-400 mb-2 flex items-center gap-1 font-medium">
                     <span>Catálogo</span> <span>&gt;</span> <span id="modal-crumb-cat" class="capitalize">Inmueble</span> <span>&gt;</span> <span id="modal-crumb-title" class="text-slate-700 font-bold">Detalle</span>
                 </nav>
                 <h2 id="modal-title" class="text-2xl sm:text-3xl font-extrabold text-brand-navy mb-6">Título de la Propiedad</h2>
 
-                <!-- Grid de Contenido -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                     
-                    <!-- COLUMNA IZQUIERDA: GALERÍA -->
                     <div class="lg:col-span-7 space-y-6">
-                        
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <div class="sm:col-span-2 h-64 sm:h-80 rounded-2xl overflow-hidden relative bg-slate-100 border border-slate-200">
-                                <img id="modal-main-img" src="" alt="Vista principal de la propiedad" class="w-full h-full object-cover transition-all duration-300">
-                                <span class="absolute bottom-3 left-3 bg-slate-900/75 text-white text-[11px] font-bold px-3 py-1 rounded-lg backdrop-blur-sm">📷 Imagen en alta resolución</span>
+                                <img id="modal-main-img" src="" alt="Vista principal" class="w-full h-full object-cover transition-all duration-300">
                             </div>
                             
                             <div class="grid grid-cols-3 sm:grid-cols-1 gap-2.5 h-auto sm:h-80">
@@ -310,7 +316,6 @@
                             </div>
                         </div>
 
-                        <!-- Precio y Specs -->
                         <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-5 flex flex-wrap items-center justify-between gap-4">
                             <div>
                                 <p class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Precio Final</p>
@@ -321,7 +326,6 @@
                             </div>
                         </div>
 
-                        <!-- Descripción -->
                         <div>
                             <h3 class="text-xs font-extrabold text-brand-navy uppercase tracking-wider mb-2">Descripción del Inmueble</h3>
                             <p id="modal-description" class="text-sm text-slate-600 leading-relaxed text-justify">
@@ -329,7 +333,6 @@
                             </p>
                         </div>
 
-                        <!-- Ficha Técnica -->
                         <div class="border-t border-slate-100 pt-4">
                             <h3 class="text-xs font-extrabold text-brand-navy uppercase tracking-wider mb-3">Detalles Físicos y Legales</h3>
                             <div class="grid grid-cols-2 gap-3 text-xs">
@@ -349,10 +352,8 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
-                    <!-- COLUMNA DERECHA: FORMULARIO -->
                     <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 shadow-xl sticky top-20">
                         <div class="pb-4 border-b border-slate-100 mb-4">
                             <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md uppercase tracking-wider">Atención Inmediata</span>
@@ -374,7 +375,7 @@
                                 <textarea id="modal-form-msg" rows="3" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-brand-cyan transition-colors resize-none">Hola, solicito más información sobre esta propiedad.</textarea>
                             </div>
 
-                            <button type="submit" class="w-full bg-brand-navy hover:bg-brand-blue text-white font-bold text-xs py-3.5 rounded-xl transition-all shadow-md active:scale-[0.99]">
+                            <button type="submit" class="w-full bg-brand-navy hover:bg-brand-blue text-white font-bold text-xs py-3.5 rounded-xl transition-all shadow-md">
                                 Enviar Consulta Directa
                             </button>
                         </form>
@@ -395,7 +396,7 @@
         </div>
     </div>
 
-   <!-- PIE DE PÁGINA CORPORATIVO (ESTILO NEXO INMOBILIARIO) -->
+  <!-- PIE DE PÁGINA CORPORATIVO (ESTILO NEXO INMOBILIARIO) -->
     <footer class="bg-brand-dark text-slate-400 pt-12 pb-8 border-t border-slate-800 text-xs sm:text-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
             
@@ -464,7 +465,6 @@
                     <h4 class="font-extrabold text-white text-sm tracking-wide uppercase mb-4 border-l-2 border-brand-cyan pl-2">Contenido</h4>
                     <ul class="space-y-2.5">
                         <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
-                        <li><a href="catalogo.html" class="hover:text-white transition-colors">Catlogo</a></li>                        
                         <li><a href="nosotros.html" class="hover:text-white transition-colors">Quiénes Somos</a></li>
                         <li><a href="contacto.html" class="hover:text-white transition-colors">Publica tu Inmueble</a></li>
                         <li><a href="contacto.html" class="hover:text-white transition-colors">Asesoría Legal</a></li>
